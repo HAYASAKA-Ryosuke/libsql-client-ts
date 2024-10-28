@@ -74,20 +74,20 @@ export const turso = createClient({
     syncInterval: 60000,
 });
 
-await client.batch(
-    [
-        "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)",
-        {
-            sql: "INSERT INTO users VALUES (?)",
-            args: ["Iku"],
-        },
-    ],
-    "write",
+await turso.batch(
+  [
+    "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)",
+    {
+      sql: "INSERT INTO users(name) VALUES (?)",
+      args: ["Iku"],
+    },
+  ],
+  "write",
 );
 
 await turso.execute({
-    sql: "SELECT * FROM users WHERE id = ?",
-    args: [1],
+  sql: "SELECT * FROM users WHERE id = ?",
+  args: [1],
 });
 ```
 
